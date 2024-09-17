@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
-	"gopkg.in/yaml.v2"
-	"io/ioutil"
+	"os"
 	"reflect"
 	"sort"
 	"strings"
+
+	"gopkg.in/yaml.v2"
 )
 
 func writeTest(server, inputFile, outputFile string) {
@@ -26,7 +27,7 @@ func writeTest(server, inputFile, outputFile string) {
 	if err != nil {
 		panic(err)
 	}
-	err = ioutil.WriteFile(outputFile, data, 0644)
+	err = os.WriteFile(outputFile, data, 0644)
 	if err != nil {
 		panic(err)
 	}
@@ -35,7 +36,7 @@ func writeTest(server, inputFile, outputFile string) {
 func runTests(server, testFile string) {
 	var hostnames []string
 	var ers expectedResults
-	data, err := ioutil.ReadFile(testFile)
+	data, err := os.ReadFile(testFile)
 	if err != nil {
 		fmt.Println(err)
 	}
