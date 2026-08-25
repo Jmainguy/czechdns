@@ -18,7 +18,11 @@ func readFile(file string) []string {
 		log.Fatal(err)
 	}
 
-	defer f.Close()
+	defer func() {
+		if err := f.Close(); err != nil {
+			log.Printf("failed to close %s: %v", file, err)
+		}
+	}()
 
 	scanner := bufio.NewScanner(f)
 
